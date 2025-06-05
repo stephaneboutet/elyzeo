@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Portfolio - Creative Designer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #ffffff;
+            --accent-color: #b465ff;
+            --text-light: #666;
+            --border-color: #e5e5e5;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--primary-color);
+            background: var(--secondary-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(248, 248, 248, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .logo-purple-o {
+            color: var(--accent-color); /* Uses your existing purple (or specify a custom one) */
+            /* OR: color: #6366f1; (same as --accent-color) */
+            /* OR: color: #8a2be2; (custom purple) */
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: min(100vh, calc(100vw / 16 * 9 + 80px));
+            min-height: 600px;
+            max-height: 800px;
+            display: flex;
+            align-items: center;
+            padding-top: 80px; /* Account for fixed nav */
+            background: rgba(248, 248, 248, 0.95);
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            height: 100%;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: min(45vh, 350px);
+            background: url('images/IMG_1206.jpg') center/cover no-repeat, linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInLeft 1s ease forwards;
+        }
+
+        .hero-name {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-top: 1.5rem;
+            opacity: 0;
+            animation: fadeInLeft 1s ease 0.3s forwards;
+        }
+
+        .hero-content {
+            text-align: left;
+            padding-left: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .down-arrow {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover .down-arrow {
+            transform: translateY(2px);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-bottom: 4rem;
+        }
+
+        .section-title-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        .section-subtitle {
+            font-size: 1.8rem;
+            color: #ccc;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Legacy styles for sections that don't use the new header */
+        .section-title-center {
+            font-size: 3rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle-center {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+        
+        .section-subtitle-black-text {
+            color: var(--primary-color);
+        }
+        
+        .text-arrow-link {
+            color: white;
+            font-size: 2rem; /* 33% larger than before */
+            font-weight: 300;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 1rem 0; /* Matches section vertical rhythm */
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .text-arrow-link:hover {
+            color: var(--accent-color);
+            transform: translateX(8px);
+        }
+
+        .text-arrow-link span {
+            display: inline-block;
+            font-size: 1.8em; /* Larger arrow */
+            vertical-align: middle;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .text-arrow-link:hover span {
+            text-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+        }
+        
+        /* +++++++++++++++++ */
+        /* Portfolio Section */
+        /* +++++++++++++++++ */
+        #works {
+            background: var(--secondary-color);
+        }
+        
+        #works .container {
+            padding: 0 1rem; /* No padding */
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .portfolio-item {
+            background: var(--secondary-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .portfolio-image {
+            width: calc(100% - 2rem);
+            height: 0;
+            padding-bottom: calc(50% - 1.5rem);
+            background:  url('images/Scientific_Timer_Link_Card.png') center/cover no-repeat, linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+            margin: 1rem;
+            border-radius: 8px;
+        }
+
+        .portfolio-item:nth-child(2) .portfolio-image {
+            background: url('images/DSCF0572.jpeg') center/cover no-repeat, linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .portfolio-item:nth-child(3) .portfolio-image {
+            background: url('images/IMG_1071.jpg') center/cover no-repeat, linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .portfolio-item:nth-child(4) .portfolio-image {
+            background: url('images/IMG_1528.jpeg') center/cover no-repeat, linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .portfolio-content {
+            padding: 1rem 2rem 2rem;
+            display: flex; /* Added flex for layout control */
+            justify-content: space-between; /* Space between title and date */
+            align-items: center; /* Center align vertically */
+        }
+
+        .portfolio-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0;
+            font-weight: 600;
+        }
+
+        .portfolio-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            margin-left: auto;
+        }
+        
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+            border-radius: 10px;
+        }
+
+        .portfolio-item:hover::before {
+            opacity: 1;
+        }
+
+        .portfolio-summary {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 2;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            padding: 1rem;
+        }
+
+        .portfolio-item:hover .portfolio-summary {
+            opacity: 1;
+        }
+
+        /* Services Section */
+        .services {
+            background: white;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .service-item {
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-number {
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .service-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .service-item p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .about-line {
+            width: 60px;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .about-section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        .about-name {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .about-description {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+        
+        .about-cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: var(--primary-color);
+          font-size: 1.25rem; /* Matches hero's "About me" font size */
+          font-weight: 500;
+          text-decoration: none;
+          margin-top: 1rem;
+          transition: all 0.3s ease;
+        }
+
+        .about-cta:hover {
+          color: var(--accent-color);
+        }
+
+        .about-cta .arrow {
+          font-size: 1em;
+          transition: transform 0.3s ease;
+        }
+
+        .about-cta:hover .arrow {
+          transform: translateX(5px);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .experience-list {
+            space-y: 1rem;
+        }
+
+        .experience-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .experience-item:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.25rem;
+        }
+
+        .experience-title {
+            font-weight: 600;
+        }
+
+        .experience-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .experience-company-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-company {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        .expand-toggle {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .expand-toggle:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .experience-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .experience-details.expanded {
+            max-height: 200px;
+            padding-top: 0.5rem;
+        }
+        
+        /* Publications*/
+        .publications {
+            background: white;
+            padding: 6rem 0;
+        }
+        
+        .publication-year {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: var(--primary-color);
+          margin: 3rem 0 1rem;
+          padding-bottom: 0.5rem;
+          border-bottom: 1px solid var(--border-color);
+        }
+
+        .publication-item {
+          margin-bottom: 2.5rem;
+          transition: all 0.3s ease;
+          padding: 1rem;
+          border-radius: 8px;
+        }
+
+        .publication-item:hover {
+          background: rgba(99, 102, 241, 0.05);
+          transform: translateX(5px);
+        }
+
+        .publication-item h3 {
+          font-size: 1.25rem;
+          font-weight: 500;
+          margin-bottom: 0.5rem;
+          line-height: 1.4;
+          color: var(--primary-color);
+        }
+
+        .publication-authors {
+          color: var(--text-light);
+          font-size: 0.95rem;
+          margin-bottom: 0.25rem;
+        }
+
+        .publication-journal {
+          color: var(--text-light);
+          font-size: 0.95rem;
+        }
+
+        .publication-journal a {
+          color: var(--accent-color);
+          text-decoration: none;
+          border-bottom: 1px dotted var(--accent-color);
+          transition: all 0.2s ease;
+        }
+
+        .publication-journal a:hover {
+          border-bottom-style: solid;
+        }
+        
+        /* View More Button */
+        .text-arrow-link {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem 0;
+        }
+        
+        .text-arrow-link:hover {
+            color: var(--accent-color);
+        }
+        
+        .text-arrow-link span {
+            transition: transform 0.3s ease;
+        }
+        
+        .text-arrow-link:hover span {
+            transform: translateX(3px);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-header {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .publication-item {
+                padding: 1rem 0;
+            }
+        }
+        
+        
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .full-width-header {
+            width: 100%;
+            padding: 4rem 1rem 0; /* Top padding matches other sections */
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .footer-title {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin: 0 auto 1rem;
+            width: 100%;
+            line-height: 1.2;
+        }
+        
+        footer .section-header {
+            margin-bottom: 2rem; /* Match other sections' spacing */
+        }
+
+        .footer-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .footer-content p {
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+        
+        .underline-link {
+            color: white;
+            font-size: 2rem;
+            font-weight: 300;
+            text-decoration: none;
+            display: inline-block;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .underline-link:hover {
+            color: var(--accent-color); /* Your purple accent */
+        }
+
+        /* Animated underline */
+        .underline-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: 0.1rem;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .underline-link:hover::after {
+            width: 100%;
+        }
+
+        /* Arrow styling */
+        .arrow {
+            margin-left: 0.75rem;
+            font-size: 1.2em;
+            vertical-align: middle;
+            transform: translateX(-10px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .underline-link:hover .arrow {
+            transform: translateX(5px);
+        }
+        
+        footer a:hover {
+            color: var(--accent-color);
+            transition: color 0.3s ease;
+        }
+
+        .social-link {
+            color: #ccc;
+            margin-right: 1rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .social-link:hover {
+            color: var(--accent-color); /* Uses your purple accent */
+            text-decoration: none;
+        }
+
+        .nav-link {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .hero-content {
+                padding-left: 0;
+            }
+
+            .hero-image {
+                height: 30vh;
+                order: -1;
+            }
+
+            .hero-name {
+                font-size: 1.5rem;
+                margin-top: 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .section-header {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: left;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-name {
+                font-size: 2.5rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .portfolio-image {
+                height: 250px;
+            }
+            
+            .portfolio-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .portfolio-date {
+                margin-left: 0;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .publication-item {
+                padding: 1rem 0;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">Elyze<span class="logo-purple-o">o</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#works">Projects</a></li>
+                <!-- <li><a href="#services">Services</a></li> -->
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-container">
+                <div class="hero-left">
+                    <div class="hero-image"> </div>
+                    <div class="hero-name">Stéphane Boutet, Ph.D.</div>
+                </div>
+                <div class="hero-content">
+                    <h1>Welcome.</h1>
+                    <p>I craft high performing team at the interface of biology and technology. I build biotechnology products and platforms integrating the latest cutting edge technologies to understand better biology, aging, diseases and build better therapeutics.<br />
+                    Let's build something exceptional together.</p>
+                    <a href="#about" class="cta-button">
+                        About me
+                        <span class="down-arrow">↓</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="works">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-title-container">
+                    <div class="section-line"></div>
+                    <h2 class="section-title">Selected Projects</h2>
+                </div>
+                <p class="section-subtitle">Discover my <span class="section-subtitle-black-text">personal App projects</span>, designed to inspire and deliver impact. Each piece showcases my dedication to <span class="section-subtitle-black-text">creativity, functionality, and exceptional product design.</span></p>
+            </div>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-image"></div>
+                    <div class="portfolio-content">
+                        <h3>Scientific Timer</h3>
+                        <div class="portfolio-date">May 30, 2025</div>
+                    </div>
+                    <div class="portfolio-summary">
+                        A precision timer app designed for<br />
+                        molecular and cellular biologists.
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-image"></div>
+                    <div class="portfolio-content">
+                        <h3>Project W</h3>
+                        <div class="portfolio-date">May 15, 2024</div>
+                    </div>
+                    <div class="portfolio-summary">
+                        Another app for scientists on the go<br />
+                        (actively in development).
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-image"></div>
+                    <div class="portfolio-content">
+                        <h3>Project Aether</h3>
+                        <div class="portfolio-date">July 14, 2024</div>
+                    </div>
+                    <div class="portfolio-summary">
+                        Cloud-based collaboration App for scientists<br />
+                        (ideation stage).
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-image"></div>
+                    <div class="portfolio-content">
+                        <h3>Project Sandridge</h3>
+                        <div class="portfolio-date">July 14, 2024</div>
+                    </div>
+                    <div class="portfolio-summary">
+                       Another, yet different small SAAS App<br />
+                       (ideation stage)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <!--
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-title-container">
+                    <div class="section-line"></div>
+                    <h2 class="section-title">Services</h2>
+                </div>
+                <p class="section-subtitle">From strategy to execution, I offer tailored design solutions to bring your vision to life. Whether it's web design, branding, or UX, I craft designs that make a difference.</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-item fade-in">
+                    <div class="service-number">01</div>
+                    <h3>Graphic Design</h3>
+                    <p>Creating visually compelling designs that elevate your brand and captivate your audience.</p>
+                </div>
+                
+                <div class="service-item fade-in">
+                    <div class="service-number">02</div>
+                    <h3>Lifestyle Photography</h3>
+                    <p>Capturing authentic moments that bring your brand to life.</p>
+                </div>
+                
+                <div class="service-item fade-in">
+                    <div class="service-number">03</div>
+                    <h3>Digital Design</h3>
+                    <p>Intuitive and aesthetically pleasing digital experiences.</p>
+                </div>
+                
+                <div class="service-item fade-in">
+                    <div class="service-number">04</div>
+                    <h3>Social Media Design</h3>
+                    <p>Engaging visuals that strengthen your online presence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    -->
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="about-header fade-in">
+                <div class="about-line"></div>
+                <h2 class="about-section-title">About Me</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <h1 class="about-name">Stéphane Boutet, Ph.D.</h1>
+                    <p class="about-description">I specialize in turning complex problems into seamless designs, from research to high-fidelity prototypes. Passionate about usability and design systems, I collaborate with teams to build products that are both beautiful and functional.</p>
+                    <a href="mailto:sboutet@elyzeo.com" class="about-cta">
+                      Contact me
+                      <span class="arrow">→</span>
+                    </a>
+                </div>
+                
+                <div class="experience-list fade-in">
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div class="experience-title">Consultant</div>
+                            <div class="experience-date">2024 - Present</div>
+                        </div>
+                        <div class="experience-company-row">
+                            <div class="experience-company">Independent</div>
+                            <button class="expand-toggle" onclick="toggleExperience(this)">+</button>
+                        </div>
+                        <div class="experience-details">
+                            Providing strategic consulting services to biotechnology companies, focusing on product development, team building, and technology integration to advance therapeutic research and development.
+                        </div>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div class="experience-title">Senior Director, Assay and Applications</div>
+                            <div class="experience-date">2023 - 2024</div>
+                        </div>
+                        <div class="experience-company-row">
+                            <div class="experience-company">Deepcell</div>
+                            <button class="expand-toggle" onclick="toggleExperience(this)">+</button>
+                        </div>
+                        <div class="experience-details">
+                            Led cross-functional teams to develop and optimize single-cell analysis assays, overseeing AI model development from concept to commercial launch while driving strategic partnerships and customer adoption.
+                        </div>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div class="experience-title">Director, Applications</div>
+                            <div class="experience-date">2022 - 2023</div>
+                        </div>
+                        <div class="experience-company-row">
+                            <div class="experience-company">Deepcell</div>
+                            <button class="expand-toggle" onclick="toggleExperience(this)">+</button>
+                        </div>
+                        <div class="experience-details">
+                            Directed applications team to develop innovative workflows for morphological cell sorting, establishing protocols and validation studies that enabled new research capabilities in cell biology.
+                        </div>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div class="experience-title">Director Biosciences</div>
+                            <div class="experience-date">2021</div>
+                        </div>
+                        <div class="experience-company-row">
+                            <div class="experience-company">ImpriMed</div>
+                            <button class="expand-toggle" onclick="toggleExperience(this)">+</button>
+                        </div>
+                        <div class="experience-details">
+                            Spearheaded biosciences initiatives for personalized cancer treatment in veterinary oncology, developing functional precision medicine platforms to improve treatment outcomes for companion animals.
+                        </div>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div class="experience-title">Staff Scientist, Sample Preparation Lead</div>
+                            <div class="experience-date">2019 - 2021</div>
+                        </div>
+                        <div class="experience-company-row">
+                            <div class="experience-company">10x Genomics</div>
+                            <button class="expand-toggle" onclick="toggleExperience(this)">+</button>
+                        </div>
+                        <div class="experience-details">
+                            Led sample preparation protocol development for single-cell genomics platforms, optimizing workflows that enabled breakthrough discoveries in cellular heterogeneity and disease mechanisms.
+                        </div>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div class="experience-title">Staff Scientist, Applications Lead</div>
+                            <div class="experience-date">2016 - 2019</div>
+                        </div>
+                        <div class="experience-company-row">
+                            <div class="experience-company">10x Genomics</div>
+                            <button class="expand-toggle" onclick="toggleExperience(this)">+</button>
+                        </div>
+                        <div class="experience-details">
+                            Pioneered applications development for revolutionary single-cell RNA sequencing technology, establishing foundational protocols that became industry standards and enabled thousands of scientific discoveries.
+                        </div>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <div class="experience-title">Collaboration Manager</div>
+                            <div class="experience-date">2013 - 2016</div>
+                        </div>
+                        <div class="experience-company-row">
+                            <div class="experience-company">Fluidigm</div>
+                            <button class="expand-toggle" onclick="toggleExperience(this)">+</button>
+                        </div>
+                        <div class="experience-details">
+                            Managed strategic collaborations with leading research institutions, facilitating technology adoption and scientific partnerships that accelerated innovation in microfluidics and single-cell analysis.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications" class="publications">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title-container">
+                    <div class="section-line"></div>
+                    <h2 class="section-title">Publications</h2>
+                </div>
+                <p class="section-subtitle">Discover my published research in stem cell biology and pioneering development of applications for <span class="section-subtitle-black-text">revolutionary single cell RNA sequencing technology</span> and <span class="section-subtitle-black-text">AI-driven morphology</span> single cell function analysis.<br />
+                    Each article showcases my dedication to <span class="section-subtitle-black-text">scientific excellence.</span></p>
+            </div>
+            
+            <!-- Publications Container -->
+            <div id="publications-container">
+                <!-- Content will be loaded here by JavaScript -->
+            </div>
+            
+            <!-- View More Button -->
+            <div style="text-align: center; margin-top: 3rem;">
+                <button id="view-more-btn"
+                    class="text-arrow-link"
+                    aria-expanded="false"
+                    aria-controls="publications-container">
+                    View more publications <span>→</span>
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    
+
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container" style="padding: 4rem 2rem; max-width: 1200px; margin: 0 auto;">
+            <div class="full-width-header fade-in">
+                <h2 class="footer-title">Stay Connected</h2>
+            </div>
+            
+            <div style="text-align: right; padding-bottom: 4rem; padding-right: 1rem;">
+                <a href="mailto:sboutet@elyzeo.com" class="underline-link">Get in touch <span class="arrow">→</span>
+                </a>
+            </div>
+            
+            <!-- Two-column layout -->
+            <div style="display: flex; justify-content: space-between; padding: 0 1rem;">
+                <!-- Left: Social + Location -->
+                <div style="text-align: left;">
+                    <div style="margin-bottom: 0.5rem;">
+                        <a href="#" class="social-link">LinkedIn ↗</a>
+                        <a href="#" class="social-link">Twitter ↗</a>
+                        <a href="#" class="social-link">GitHub ↗</a>
+                    </div>
+                    <div style="color: #ccc;">Elyzeo</div>
+                    <div style="color: #ccc; margin-top: 0.25rem;">Burlingame, CA</div>
+                </div>
+                
+                <!-- Right: Navigation links -->
+                <div style="text-align: right;">
+                    <div><a href="#home" class="nav-link">Home</a></div>
+                    <div style="margin-top: 0.5rem;"><a href="#works" class="nav-link">Selected Projects</a></div>
+                    <div style="margin-top: 0.5rem;"><a href="#services" class="nav-link">Services</a></div>
+                    <div style="margin-top: 0.5rem;"><a href="#about" class="nav-link">About Me</a></div>
+                </div>
+            </div>
+            
+            <!-- Copyright line -->
+            <div style="border-top: 1px solid #333; margin-top: 3rem; padding-top: 1.5rem;">
+              <div style="color: #666; text-align: center;">© 2025 Stéphane Boutet</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with fade-in class
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(248, 248, 248, 0.98)';
+            } else {
+                nav.style.background = 'rgba(248, 248, 248, 0.95)';
+            }
+        });
+
+        // Portfolio item click interactions
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Add your click handling logic here
+                console.log('Portfolio item clicked');
+            });
+        });
+        
+        // Experience item toggle functionality
+        document.querySelectorAll('.experience-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                // Prevent event bubbling if clicking directly on the button
+                if (e.target.classList.contains('expand-toggle')) {
+                    return;
+                }
+                
+                const button = this.querySelector('.expand-toggle');
+                const details = this.querySelector('.experience-details');
+                const isExpanded = details.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    details.classList.remove('expanded');
+                    button.textContent = '+';
+                } else {
+                    details.classList.add('expanded');
+                    button.textContent = '×';
+                }
+            });
+            
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    e.target.click();
+                }
+            });
+        });
+        
+        // Publication data with DOIs
+        //let showAll = false;
+       // const visiblePublications = 3; // Number to show initially
+        const publications = [
+          {
+            year: "2024",
+            title: "Label-free melanoma phenotype classification using AI-based morphological profiling",
+            authors: "Lattmann E, Jovic A, Kim J, Pham T, Corona C, Lian Z, Saini K, Ray M, Lu V, Tastanova A, Boutet SC, Levesque MP",
+            journal: "bioRxiv 2024.06.28.601235",
+            doi: "https://doi.org/10.1101/2024.06.28.601235"
+          },
+          {
+            year: "2024",
+            title: "Deep learning-driven morphology analysis enables label-free classification of therapeutic agent-naive versus resistant cells",
+            authors: "Jovic A, Saini K, Lian Z, Corona C, Pham T, Carelli R, Boutet SC, Ray M, Sethuraman S, Prindle V, Lattman E, Molvetti M-G, Dzung A, Levesque MP, Barnes M, Ramatthal C",
+            journal: "Precision Oncology",
+            status: "(Submitted)"
+          },
+          {
+            year: "2023",
+            title: "AI-driven morphology-based enrichment of malignant cells from body fluid",
+            authors: "Mavropoulos A, Johnson C, Lu V, Nieto J, Schneider EC, Saini K, Phelan ML, Hsie LX, Wang MJ, Cruz J, Mei J, Kim JJ, Lian Z, Li N, Boutet SC, Wong-Thai AY, Yu W, Lu QY, Kim T, Geng Y, Masaeli MM, Lee TD, Rao J",
+            journal: "Modern Pathology",
+            volume: "36(8):100195",
+            doi: "https://doi.org/10.1016/j.modpat.2023.100195"
+          },
+          {
+            year: "2020",
+            title: "Single-Cell Transcriptomics Reveals Early Emergence of Liver Parenchymal and Non-parenchymal Cell Lineages",
+            authors: "Lotto J, Drissler S, Cullum R, Wei W, Setty M, Bell EM, Boutet SC, Nowotschin S, Kuo Y-Y, Garg V, Pe'er D, Church DM, Hadjantonakis A-K, Hoodless PA",
+            journal: "Cell",
+            volume: "183: 702-716",
+            doi: "https://doi.org/10.1016/j.cell.2020.09.012"
+          },
+          {
+            year: "2020",
+            title: "Benchmarking Single-Cell RNA sequencing protocols for Cell Atlas Projects",
+            authors: "Mereu E, Lafzi A, Moutinho C, Ziegenhain C, MacCarthy DJ, Alvarez A, Batlle E, Sagar, Grun D, Lau JK, Boutet SC, Sanada C, Ooi A, Jones RC, Kaihara K, Brampton C, Talaga Y, Sasagawa A, Tanaka K, Hayasho T, Nikaido I, Fischer C, Sauer S, Trezfer T, Conrad C, Adiconis X, Nguyen LT, Regev A, Levin JZ, Janjic A, Wange LE, Bagnoli JW, Enard W, Gut M, Sandberg R, Gut I, Stegle O, Heyn H",
+            journal: "Nature Biotechnology",
+            volume: "38(6):747-755",
+            doi: "https://doi.org/10.1038/s41587-020-0469-4"
+          },
+          {
+            year: "2019",
+            title: "Single-cell analysis reveals T cell infiltration in old neurogenic niches",
+            authors: "Dulken BW, Buckley MT, Navarro Negredo P, Saligrama N, Cayrol R, Leeman DS, George BM, Boutet SC, Hebestreit K, Pluvinage JV, Wyss-Coray T, Weissman IL, Vogel H, Davis MM, Brunet A",
+            journal: "Nature",
+            volume: "571: 205-210",
+            doi: "https://doi.org/10.1038/s41586-019-1362-5"
+          },
+          {
+            year: "2019",
+            title: "The emergent landscape of the mouse gut endoderm at single cell resolution",
+            authors: "Nowotschin S, Setty M, Kuo YY, Liu V, Garg V, Sharma R, Simon CS, Saiz N, Gardner R, Boutet SC, Church DM, Hoodless PA, Hadjantonakis A-K, Pe'er D",
+            journal: "Nature",
+            volume: "569: 361-367",
+            doi: "https://doi.org/10.1038/s41586-019-1127-1"
+          },
+          {
+            year: "2017",
+            title: "Intestinal Enteroendocrine Lineage Cells Possess Homeostatic and Injury-Inducible Stem Cell Activity",
+            authors: "Yan KS, Gevaert O, Zheng GXY, Anchang B, Probert CS, Larkin KA, Davies PS, Cheng ZF, Kaddis JS, Han A, Roelf K, Calderon RI, Cynn E, Hu X, Mandleywala K, Wilhelmy J, Grimes SM, Corney DC, Boutet SC, Terry JM, Belgrader P, Ziraldo SB, Mikkelsen TS, Wang F, von Furstenberg RJ, Smith NR, Chandrakesan P, May R, Chrissy MAS, Jain R, Cartwright CA, Niland JC, Hong YK, Carrington J, Breault DT, Epstein J, Houchen CW, Lynch JP, Martin MG, Plevritis SK, Curtis C, Ji HP, Li L, Henning SJ, Wong MH, Kuo CJ",
+            journal: "Cell Stem Cell",
+            volume: "21(1):78-90.e6",
+            doi: "https://doi.org/10.1016/j.stem.2017.06.014"
+          },
+          {
+            year: "2017",
+            title: "Measuring Signaling and RNA-Seq in the Same Cell Links Gene Expression to Dynamic Patterns of NF-kB Activation",
+            authors: "Lane KM, Van Valen D, DeFelice M, Macklin D, Jaimovich A, Carr A, Meyer T, Pe'er D, Boutet SC, Covert MW",
+            journal: "Cell Systems",
+            volume: "4: 1-12",
+            doi: "https://doi.org/10.1016/j.cels.2017.03.010"
+          },
+          {
+            year: "2017",
+            title: "Single cell transcriptomic analysis defines heterogeneity and transcriptional dynamics in the adult neural stem cell lineage",
+            authors: "Dulken BW, Leeman DS, Boutet SC, Hebestreit K, Brunet A",
+            journal: "Cell Reports",
+            volume: "18: 777-790",
+            doi: "https://doi.org/10.1016/j.celrep.2016.12.060"
+          },
+          {
+            year: "2017",
+            title: "Single-cell protein-mRNA correlation analysis enabled by multiplexed dual-analyte co-detection",
+            authors: "Gong H, Wang X, Liu B, Boutet SC, Holcomb IN, Dakshinamoorthy G, Ooi A, Sanada C, Sun G, Ramakrishnan R",
+            journal: "Scientific Reports",
+            volume: "7(1):2776",
+            doi: "https://doi.org/10.1038/s41598-017-03057-5"
+          },
+          {
+            year: "2017",
+            title: "Developpement d'un microenvironment artificiel pour maintenir la quiescence et le potentiel therapeutique des cellules souches du muscle squelettique",
+            authors: "Boutet SC, Quarta M",
+            journal: "Medecine & Science (Paris)",
+            volume: "33(3):341-344",
+            doi: "https://doi.org/10.1051/medsci/20173303023"
+          },
+          {
+            year: "2016",
+            title: "An artificial niche preserves the quiescence of muscle stem cells and enhances their therapeutic efficacy",
+            authors: "Quarta M, Brett JO, DiMarco R, De Morree A, Boutet SC, Chacon R, Gibbons MC, Garcia VA, Su J, Shrager JB, Heilshorn S, Rando TA",
+            journal: "Nature Biotechnology",
+            volume: "34: 752-759",
+            doi: "https://doi.org/10.1038/nbt.3576"
+          },
+          {
+            year: "2014",
+            title: "The eSNV-Detect: A computational system to identify expressed single nucleotide variants from transcriptome sequencing data",
+            authors: "Tang X, Baheti S, Khader S, Thompson KJ, Wills Q, Niu N, Ramakrishnan R, Holcomb IN, Boutet SC, Kachergus JM, Richard W, Wang L, Thompson AE, Kalari KR",
+            journal: "Nucl. Acids Res.",
+            volume: "42(22): e172",
+            doi: "https://doi.org/10.1093/nar/gku1005"
+          },
+          {
+            year: "2012",
+            title: "Alternative polyadenylation mediates microRNA regulation of muscle stem cell function",
+            authors: "Boutet SC, Cheung T, Quach NL, Prescott SL, Edalati A, Iori K, Rando TA",
+            journal: "Cell Stem Cell",
+            volume: "10(3): 327-336",
+            doi: "https://doi.org/10.1016/j.stem.2012.01.017"
+          },
+          {
+            year: "2010",
+            title: "Taf1 regulates the degradation of Pax3 by monoubiquitination in muscle progenitors",
+            authors: "Boutet SC, Biressi S, Iori K, Natu V, Rando TA",
+            journal: "Molecular Cell",
+            volume: "40(5): 749-761",
+            doi: "https://doi.org/10.1016/j.molcel.2010.09.029"
+          },
+          {
+            year: "2008",
+            title: "Degradation proteasomique de Pax3 dans les cellules progenitrices musculaires: une ubiquitine fait l'affaire!",
+            authors: "Boutet SC, Rando TA",
+            journal: "Medecine & Science (Paris)",
+            volume: "24(1):31-3",
+            doi: "https://doi.org/10.1051/medsci/200824131"
+          },
+          {
+            year: "2007",
+            title: "Regulation of Pax3 by proteasomal degradation of mono-ubiquitinated protein in skeletal muscle progenitors",
+            authors: "Boutet SC, Disatnik MH, Chan LS, Iori K, Rando TA",
+            journal: "Cell",
+            volume: "130(2): 349-362",
+            doi: "https://doi.org/10.1016/j.cell.2007.05.044"
+          },
+          {
+            year: "2004",
+            title: "The bi-directional translocation of MARCKS between membrane and cytosol regulates integrin-mediated muscle cell spreading",
+            authors: "Disatnik MH, Boutet SC, Pacio W, Chan AY, Ross LB, Lee CH, Rando TA",
+            journal: "J Cell Sci.",
+            volume: "117(Pt 19): 4469-79",
+            doi: "https://doi.org/10.1242/jcs.01309"
+          },
+          {
+            year: "2002",
+            title: "Sequential activation of individual PKC isozymes in integrin-mediated muscle cell spreading: a role for MARCKS in an integrin signaling pathway",
+            authors: "Disatnik MH, Boutet SC, Lee CH, Mochly-Rosen D, Rando TA",
+            journal: "J Cell Sci.",
+            volume: "115(Pt 10): 2151-63",
+            doi: "https://doi.org/10.1242/jcs.115.10.2151"
+          },
+          {
+            year: "2002",
+            title: "Molecular Biology of vascular remodeling",
+            authors: "Tsao P, Wohlgemuth J, Rezaee M, Johnson FL, Boutet SC, Fadel BM, Quertermous T",
+            journal: "In: Lanzer P., Topol E.J. Eds. Principles and Practice of Panvascular Medicine, 1st edition. Berlin: Springer Verlag.",
+            doi: ""
+          },
+          {
+            year: "2001",
+            title: "Identification of an octamer element required for the in vivo expression of the TIE-1 gene in endothelial cells",
+            authors: "Boutet SC, Quertermous T, Fadel BM",
+            journal: "Biochem. J.",
+            volume: "360:23-29",
+            doi: "https://doi.org/10.1042/0264-6021:3600023"
+          },
+          {
+            year: "2000",
+            title: "Endothelial cell-specific regulation of the murine endothelin-1 gene",
+            authors: "Fadel BM, Boutet SC, Quertermous T",
+            journal: "J Cardiovasc Pharmacol.",
+            volume: "35(4 Suppl 2): S7-11",
+            doi: "https://doi.org/10.1097/00005344-200000002-00003"
+          },
+          {
+            year: "1999",
+            title: "Octamer-dependent in vivo expression of the endothelial cell-specific TIE2 gene",
+            authors: "Fadel BM, Boutet SC, Quertermous T",
+            journal: "J Biol Chem.",
+            volume: "274(29):20376-83",
+            doi: "https://doi.org/10.1074/jbc.274.29.20376"
+          },
+          {
+            year: "1999",
+            title: "Failure of T lymphocytes from elderly humans to enter the cell cycle is associated with low CDK6 activity and impaired phosphorylation of Rb protein",
+            authors: "Arbogast A, Boutet S, Phelouzat MA, Plastre O, Quadri AA, Proust JJ",
+            journal: "Cell. Immunol.",
+            volume: "197(1): 46-54",
+            doi: "https://doi.org/10.1006/cimm.1999.1550"
+          },
+          {
+            year: "1998",
+            title: "Functional analysis of the endothelial cell-specific Tie2/Tek promoter identifies unique protein-binding elements",
+            authors: "Fadel BM, Boutet SC, Quertermous T",
+            journal: "Biochem J.",
+            volume: "330 (Pt 1):335-43",
+            doi: "https://doi.org/10.1042/bj3300335"
+          },
+          {
+            year: "1998",
+            title: "Age-associated decline in cdk1 activity delays cell cycle progression of human T lymphocytes",
+            authors: "Quadri RA, Arbogast A, Phelouzat MA, Boutet S, Plastre O, Proust JJ",
+            journal: "J Immunol.",
+            volume: "161(10):5203-9",
+            doi: "https://doi.org/10.4049/jimmunol.161.10.5203"
+          },
+          {
+            year: "1997",
+            title: "Susceptibility to apoptosis of T lymphocytes from elderly humans is associated with increased in vivo expression of functional Fas receptors",
+            authors: "Phelouzat MA, Laforge T, Arbogast A, Quadri RA, Boutet S, Proust JJ",
+            journal: "Mech Ageing Dev.",
+            volume: "96(1-3):35-46",
+            doi: "https://doi.org/10.1016/s0047-6374(97)01883-6"
+          }
+        ];
+        
+        // Publication Manager
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('publications-container');
+            const viewMoreBtn = document.getElementById('view-more-btn');
+            let showAll = false;
+            const initialVisibleCount = 3;
+            
+            function renderPublications() {
+                container.innerHTML = '';
+                
+                // Determine which publications to show
+                const pubsToShow = showAll ?
+                publications :
+                publications.slice(0, initialVisibleCount);
+                
+                // Group by year (newest first)
+                const pubsByYear = pubsToShow.reduce((acc, pub) => {
+                    acc[pub.year] = acc[pub.year] || [];
+                    acc[pub.year].unshift(pub);
+                    return acc;
+                }, {});
+                
+                // Render publications by year
+                Object.keys(pubsByYear)
+                .sort((a, b) => b - a) // Sort years descending
+                .forEach(year => {
+                    const yearEl = document.createElement('div');
+                    yearEl.className = 'publication-year fade-in';
+                    yearEl.textContent = year;
+                    container.appendChild(yearEl);
+                    
+                    pubsByYear[year].forEach(pub => {
+                        const pubEl = document.createElement('div');
+                        pubEl.className = 'publication-item fade-in';
+                        pubEl.innerHTML = `
+                                                <h3>${pub.title}</h3>
+                                                <p class="publication-authors">${pub.authors}</p>
+                                                <p class="publication-journal">
+                                                ${pub.doi ? 
+                                                `<a href="${pub.doi}" target="_blank" rel="noopener">${pub.journal}</a>` : 
+                                                pub.journal}
+                                            ${pub.volume ? `, ${pub.volume}` : ''}
+                                            ${pub.status ? ` ${pub.status}` : ''}
+                                        </p>
+                                    `;
+                                    container.appendChild(pubEl);
+                    });
+                });
+                
+                // Update button state
+                if (publications.length > initialVisibleCount) {
+                    viewMoreBtn.style.display = 'inline-flex';
+                    viewMoreBtn.setAttribute('aria-expanded', showAll);
+                    viewMoreBtn.innerHTML = showAll ?
+                    'Show less <span>↑</span>' :
+                    'View more publications <span>→</span>';
+                } else {
+                    viewMoreBtn.style.display = 'none';
+                }
+            }
+            
+            // Initial render
+            renderPublications();
+            
+            // Button click handler
+            viewMoreBtn.addEventListener('click', function() {
+                showAll = !showAll;
+                renderPublications();
+                
+                // Smooth scroll to maintain context
+                if (showAll) {
+                    setTimeout(() => {
+                        viewMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 300);
+                }
+            });
+        });
+        
+
+        function toggleExperience(button) {
+            const details = button.closest('.experience-item').querySelector('.experience-details');
+            const isExpanded = details.classList.contains('expanded');
+            
+            if (isExpanded) {
+                details.classList.remove('expanded');
+                button.textContent = '+';
+            } else {
+                details.classList.add('expanded');
+                button.textContent = '×';
+            }
+        }
+    </script>
+</body>
+</html>

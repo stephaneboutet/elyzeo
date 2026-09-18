@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research — Stéphane Boutet, Ph.D.</title>
+    <meta name="description" content="Publications and patents by Stéphane Boutet: stem-cell biology, single-cell genomics and AI-driven cell analysis.">
+    <link rel="icon" href="../img/elyzeoicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/pro.css">
+</head>
+<body>
+
+<nav class="nav">
+    <div class="wrap">
+        <a class="nav-name" href="index.html">Stéphane Boutet</a>
+        <ul class="nav-links">
+            <li class="hide-sm"><a href="index.html#experience">Experience</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a class="nav-studio" href="../index.html">Elyzeo ↗</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="hero" style="padding-bottom: 32px;">
+    <div class="wrap">
+        <p class="eyebrow">Research</p>
+        <h1>Publications &amp; patents</h1>
+        <p class="intro">My research runs from muscle stem-cell biology at Stanford to single-cell genomics and AI-driven cell analysis in industry. I've also written 8 application notes and 2 white papers, and spoken at ASHG and Keystone.</p>
+        <div class="tabs" role="group" aria-label="Show">
+            <button class="tab" data-view="publications" aria-pressed="true">Publications</button>
+            <button class="tab" data-view="patents" aria-pressed="false">Patents</button>
+        </div>
+    </div>
+</header>
+
+<main class="wrap" style="padding-bottom: 96px;">
+    <div id="list"></div>
+</main>
+
+<footer>
+    <div class="wrap">
+        <span>© 2026 Stéphane Boutet · Burlingame, California</span>
+        <span><a href="index.html">About</a> · <a href="../index.html">Elyzeo studio</a></span>
+    </div>
+</footer>
+
+<script src="js/research-data.js"></script>
+<script>
+(function () {
+    const list = document.getElementById('list');
+    const tabs = document.querySelectorAll('.tab');
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+    // Bold my name and shorten very long author lists
+    function authors(str) {
+        const names = str.split(/,\s*/);
+        const me = n => /Boutet/.test(n);
+        const fmt = n => me(n) ? `<b>${esc(n)}</b>` : esc(n);
+        if (names.length <= 8) return names.map(fmt).join(', ');
+        const i = names.findIndex(me);
+        const short = names.slice(0, 3).map(fmt).join(', ') + ' … ' +
+            (i >= 3 && i < names.length - 1 ? fmt(names[i]) + ' … ' : '') +
+            fmt(names[names.length - 1]);
+        return `<span class="short">${short} <button class="author-toggle">+${names.length - 4} more</button></span>` +
+               `<span class="full" hidden>${names.map(fmt).join(', ')}</span>`;
+    }
+
+    function byYear(items) {
+        const groups = {};
+        items.forEach(it => (groups[it.year] = groups[it.year] || []).push(it));
+        return Object.keys(groups).sort((a, b) => b - a).map(y => [y, groups[y]]);
+    }
+
+    function renderPublications() {
+        list.innerHTML = byYear(publications).map(([year, pubs]) => `
+            <h3 class="year">${year}</h3>
+            <ul class="pubs" style="margin-top: 8px;">
+                ${pubs.map(p => `
+                <li class="pub">
+                    ${p.doi ? `<a class="pub-title" href="${esc(p.doi)}" target="_blank" rel="noopener">${esc(p.title)}</a>`
+                            : `<span class="pub-title">${esc(p.title)}</span>`}
+                    <div class="pub-meta"><em>${esc(p.journal)}</em>${p.volume ? ' · ' + esc(p.volume) : ''}${p.status ? ' · ' + esc(p.status) : ''}</div>
+                    <div class="pub-authors">${authors(p.authors)}</div>
+                </li>`).join('')}
+            </ul>`).join('');
+    }
+
+    function renderPatents() {
+        const granted = patents.filter(p => p.status === 'Granted').length;
+        list.innerHTML = `<p class="lede" style="margin-top: 24px;">Named inventor on 9 patent families: ${granted} granted US patents and ${patents.length - granted} published applications, covering single-cell genomics, spatial transcriptomics and AI-driven cell analysis.</p>` +
+            byYear(patents).map(([year, pats]) => `
+            <h3 class="year">${year}</h3>
+            <ul class="pubs" style="margin-top: 8px;">
+                ${pats.map(p => `
+                <li class="pub">
+                    <a class="pub-title" href="https://patents.google.com/patent/${esc(p.patentNumber.replace(/-/g, ''))}" target="_blank" rel="noopener">${esc(p.title)}</a>
+                    <span class="badge ${p.status === 'Granted' ? 'badge-granted' : 'badge-pending'}">${p.status === 'Granted' ? 'Granted' : 'Application'}</span>
+                    <div class="pub-meta">${esc(p.patentNumber)}</div>
+                    <div class="pub-authors">${authors(p.inventors)}</div>
+                </li>`).join('')}
+            </ul>`).join('');
+    }
+
+    function show(view) {
+        tabs.forEach(t => t.setAttribute('aria-pressed', t.dataset.view === view));
+        view === 'patents' ? renderPatents() : renderPublications();
+        try { history.replaceState(null, '', view === 'patents' ? '#patents' : '#publications'); } catch (e) {}
+    }
+
+    tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.view)));
+    list.addEventListener('click', e => {
+        if (!e.target.classList.contains('author-toggle')) return;
+        const box = e.target.closest('.pub-authors');
+        box.querySelector('.short').hidden = true;
+        box.querySelector('.full').hidden = false;
+    });
+
+    show(location.hash === '#patents' ? 'patents' : 'publications');
+})();
+</script>
+</body>
+</html>

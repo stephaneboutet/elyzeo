@@ -206,19 +206,26 @@ footer a { color: var(--ink-soft); }
 .quote cite { display: block; margin-top: 18px; font-style: normal; color: var(--ink-soft); }
 @media (max-width: 480px) { .quote { padding: 32px 24px; } }
 
-/* Screenshot gallery (app pages) */
-.gallery {
-    display: flex; gap: 28px; overflow-x: auto; scroll-snap-type: x mandatory;
-    --edge: max(24px, calc((100vw - var(--max)) / 2 + 24px));
-    padding: 8px var(--edge) 24px;
-    scroll-padding-inline: var(--edge);
-    scrollbar-width: thin;
+/* Alternating screenshot rows (app pages) */
+.rows { display: flex; flex-direction: column; gap: 72px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.row:nth-child(even) .row-img { order: 2; }
+.row-img {
+    background: #e9d9ff; border-radius: var(--radius); overflow: hidden;
+    max-width: 360px; width: 100%; justify-self: center;
+    -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent);
+            mask-image: linear-gradient(to bottom, #000 78%, transparent);
 }
-.gallery figure { flex: 0 0 240px; scroll-snap-align: start; }
-.gallery img { width: 100%; border-radius: 22px; box-shadow: 0 14px 34px rgba(29, 21, 48, .16); }
-.gallery figcaption { margin-top: 16px; font-size: 0.93rem; color: var(--ink-soft); }
-.gallery figcaption strong { display: block; font-family: var(--display); font-size: 1.15rem; color: var(--ink); margin-bottom: 4px; }
-@media (max-width: 480px) { .gallery figure { flex-basis: 70%; } }
+.row-img img { width: 100%; }
+.row-kicker { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); margin-bottom: 10px; }
+.row-text h3 { font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem, 3.5vw, 2.6rem); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; }
+.row-text p:last-child { font-size: 1.1rem; color: var(--ink-soft); max-width: 440px; }
+@media (max-width: 760px) {
+    .rows { gap: 56px; }
+    .row { grid-template-columns: 1fr; gap: 24px; }
+    .row:nth-child(even) .row-img { order: 0; }
+    .row-img { max-width: 320px; }
+}
 
 .privacy-card { display: flex; gap: 28px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px; }
 .privacy-card .dot { flex: 0 0 56px; height: 56px; border-radius: 16px; background: #dff6e8; display: grid; place-items: center; font-size: 1.6rem; }
